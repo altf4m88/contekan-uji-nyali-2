@@ -13,8 +13,14 @@ class CreateTableRegistrations extends Migration
      */
     public function up()
     {
-        Schema::create('table_registrations', function (Blueprint $table) {
+        Schema::create('registrations', function (Blueprint $table) {
             $table->id();
+            $table->string('fullname');
+            $table->string('address');
+            $table->string('gender');
+            $table->string('religion');
+            $table->string('junior_high_school');
+            $table->string('major');
             $table->timestamps();
         });
     }
