@@ -8,6 +8,7 @@
             <th scope="col">Agama</th>
             <th scope="col">Asal SMP</th>
             <th scope="col">Jurusan</th>
+            <th scope="col">Tanggal Daftar</th>
         </tr>
     </thead>
     <tbody>
@@ -20,6 +21,7 @@
                 <td>{{$registration->religion}}</td>
                 <td>{{$registration->junior_high_school}}</td>
                 <td>{{$registration->major}}</td>
+                <td>{{$registration->registered_at}}</td>
             </tr>
         @endforeach
     </tbody>

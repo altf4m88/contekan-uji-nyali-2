@@ -8,7 +8,7 @@
             </button>
         </div>
         <div class="modal-body">
-            <form action="{{URL::to('/register')}}" method="post">
+            <form action="{{URL::to('/register')}}" method="post"  enctype="multipart/form-data">
                 @csrf
             <fieldset class="form-group mb-2">
                 <label for="exampleInputPassword1">Nama Lengkap</label>
@@ -21,6 +21,10 @@
             <fieldset class="form-group mb-2">
                 <label for="exampleInputPassword1">Asal Sekolah</label>
                 <input type="text" max="255"  class="form-control" name="asal_sekolah" id="exampleInputPassword1" required placeholder="Asal Sekolah">
+            </fieldset>
+            <fieldset class="form-group mb-2">
+                <label for="exampleInputFile">Foto Siswa</label>
+                <input type="file"  class="form-control" accept="image/*" name="foto" id="exampleInputFile" required placeholder="Pilih file">
             </fieldset>
             <fieldset class="form-group mb-2">
                 <label for="jk">Jenis Kelamin</label>

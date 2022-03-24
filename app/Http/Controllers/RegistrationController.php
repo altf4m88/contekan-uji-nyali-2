@@ -6,6 +6,7 @@ use App\Models\Registration;
 use Illuminate\Http\Request;
 use PDF;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Storage;
 
 //time end 9:35
 //start time 7:30
@@ -14,9 +15,20 @@ class RegistrationController extends Controller
 {
     public function index() {
 
-        $registrations = Registration::all();
+        $registrations = Registration::orderBy('id', 'desc')->get();
 
-        return view('dashboard')->with('registrations', $registrations);
+        $registrationWithDate = [];
+        foreach ($registrations  as $key => $registration) {
+
+            $registrationWithDate[$key] = $registration;
+            $date = Carbon::createFromDate($registration->created_at)->locale('id_ID')->tz('Asia/Jakarta');
+
+            $registeredAt = $date->hour.':'. $date->minute .' '.$date->day.' '.$date->monthName.' '.$date->year;
+
+            $registrationWithDate[$key]['registered_at'] = $registeredAt;
+        }
+
+        return view('dashboard')->with('registrations', $registrationWithDate);
     }
 
     public function create(Request $request) {
@@ -28,6 +40,9 @@ class RegistrationController extends Controller
         $register->gender = $request->jk;
         $register->religion = $request->agama;
         $register->major = $request->jurusan;
+        $register->photo = $request->file('foto')->getClientOriginalName();
+
+        Storage::disk('public_uploads')->put("images/$register->photo", $request->file('foto'));
 
         $register->save();
 
